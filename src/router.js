@@ -10,15 +10,22 @@ import NotFound from './pages/NotFound.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/coatches' },
-    { path: '/coatches', component: CoatchesList },
+    { path: '/', name: 'home', redirect: '/coatches' },
+    { path: '/coatches', name: 'coatchesList', component: CoatchesList },
     {
       path: '/coatches:id',
+      name: 'CoachDetail',
       component: CoatchesDetail,
-      children: [{ path: '/contact', component: ContactCoatch }],
+      children: [
+        { path: '/contact', name: 'CoatchContact', component: ContactCoatch },
+      ],
     },
-    { path: '/register', component: CoatchesRegistration },
-    { path: '/requests', component: ReceivedRequests },
+    { path: '/register', name: 'register', component: CoatchesRegistration },
+    {
+      path: '/requests',
+      name: 'receivedRequests',
+      component: ReceivedRequests,
+    },
     { path: '/:notFound(.*)', component: NotFound },
   ],
 });
