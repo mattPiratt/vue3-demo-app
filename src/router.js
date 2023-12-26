@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'CoachDetail',
       component: CoatchesDetail,
       children: [
-        { path: '/contact', name: 'CoatchContact', component: ContactCoatch },
+        { path: 'contact', name: 'CoatchContact', component: ContactCoatch },
       ],
     },
     { path: '/register', name: 'register', component: CoatchesRegistration },
