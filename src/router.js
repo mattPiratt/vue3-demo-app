@@ -13,8 +13,8 @@ const router = createRouter({
     { path: '/', name: 'home', redirect: '/coatches' },
     { path: '/coatches', name: 'coatchesList', component: CoatchesList },
     {
-      path: '/coatches:id',
-      name: 'CoachDetail',
+      path: '/coatches/:id',
+      name: 'coachDetail',
       component: CoatchesDetail,
       children: [
         { path: 'contact', name: 'CoatchContact', component: ContactCoatch },

@@ -7,16 +7,23 @@
     </div>
     <ul v-if="hasCoatches">
       List of coatches
-      <li v-for="coatch in filteredCoatches" :key="coatch.id">
-        {{ coatch.firstName }} {{ coatch.lastName }}
-      </li>
+      <CoatchItem
+        v-for="coatch in filteredCoatches"
+        :key="coatch.id"
+        v-bind="coatch"
+      ></CoatchItem>
     </ul>
     <p v-else>No coaches found.</p>
   </section>
 </template>
 
 <script>
+import CoatchItem from '../../components/coatches/Item.vue';
+
 export default {
+  components: {
+    CoatchItem,
+  },
   computed: {
     filteredCoatches() {
       return this.$store.getters['coatches/getList'];
@@ -27,3 +34,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
