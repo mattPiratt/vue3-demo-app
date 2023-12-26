@@ -1,1 +1,5 @@
-<template><p>not yet implemented</p></template>
+<template>
+  <p>Details for cotach</p>
+  <RouterView />
+  <RouterLink :to="{ name: 'CoatchContact' }" />
+</template>
