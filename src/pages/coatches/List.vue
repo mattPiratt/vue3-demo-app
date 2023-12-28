@@ -1,19 +1,23 @@
 <template>
   <section>Filter</section>
   <section>
-    <div class="controls">
-      <button>Refresh</button>
-      <router-link :to="{ name: 'register' }">Register as coatch</router-link>
-    </div>
-    <ul v-if="hasCoatches">
-      List of coatches
-      <CoatchItem
-        v-for="coatch in filteredCoatches"
-        :key="coatch.id"
-        v-bind="coatch"
-      ></CoatchItem>
-    </ul>
-    <p v-else>No coaches found.</p>
+    <base-card>
+      <div class="controls">
+        <base-button styleMode="outline">Refresh</base-button>
+        <base-button link :to="{ name: 'register' }"
+          >Register as coatch</base-button
+        >
+      </div>
+      <ul v-if="hasCoatches">
+        List of coatches
+        <CoatchItem
+          v-for="coatch in filteredCoatches"
+          :key="coatch.id"
+          v-bind="coatch"
+        ></CoatchItem>
+      </ul>
+      <p v-else>No coaches found.</p>
+    </base-card>
   </section>
 </template>
 

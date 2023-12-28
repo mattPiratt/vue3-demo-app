@@ -2,16 +2,22 @@
   <li>
     <h3>{{ fullName }}</h3>
     <h4>${{ hourlyRate }}/h</h4>
-    <div>
-      <span v-for="area in areas" :key="area.id">{{ area }}</span>
-      <div class="actions">
-        <router-link :to="{ name: 'CoatchContact', params: { id: id } }"
-          >Contact</router-link
-        >
-        <router-link :to="{ name: 'coachDetail', params: { id: id } }"
-          >Details</router-link
-        >
-      </div>
+    <base-badge
+      v-for="area in areas"
+      :key="area"
+      :title="area"
+      :styleMode="area"
+    ></base-badge>
+    <div class="actions">
+      <base-button
+        link
+        styleMode="outline"
+        :to="{ name: 'CoatchContact', params: { id: id } }"
+        >Contact</base-button
+      >
+      <base-button link :to="{ name: 'coachDetail', params: { id: id } }"
+        >Details</base-button
+      >
     </div>
   </li>
 </template>
