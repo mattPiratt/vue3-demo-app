@@ -2,7 +2,7 @@
   <section>
     <base-card>
       <h2>Register as a coatch now!</h2>
-      <coatch-form></coatch-form>
+      <coatch-form @new-coatch-added="saveData"></coatch-form>
     </base-card>
   </section>
 </template>
@@ -13,6 +13,12 @@ import CoatchForm from '../../components/coatches/Form.vue';
 export default {
   components: {
     CoatchForm,
+  },
+  methods: {
+    saveData(data) {
+      this.$store.dispatch('coatches/add', data);
+      this.$router.replace({ name: 'coatchesList' });
+    },
   },
 };
 </script>

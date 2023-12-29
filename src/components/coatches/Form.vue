@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  emits: ['new-coatch-added'],
   data() {
     return {
       firstName: '',
@@ -55,7 +56,7 @@ export default {
         description: this.description,
         hourlyRate: this.hourlyRate,
       };
-      console.log(data);
+      this.$emit('new-coatch-added', data);
     },
   },
 };
