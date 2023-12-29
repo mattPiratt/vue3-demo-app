@@ -1,5 +1,5 @@
 <template>
-  <section>Filter</section>
+  <CoatchFilter @change-filter="setFilters" />
   <section>
     <base-card>
       <div class="controls">
@@ -23,17 +23,54 @@
 
 <script>
 import CoatchItem from '../../components/coatches/Item.vue';
+import CoatchFilter from '../../components/coatches/Filter.vue';
 
 export default {
   components: {
     CoatchItem,
+    CoatchFilter,
+  },
+  data() {
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true,
+      },
+    };
   },
   computed: {
     filteredCoatches() {
-      return this.$store.getters['coatches/getList'];
+      const coatches = this.$store.getters['coatches/getList'];
+      return coatches.filter((coatch) => {
+        if (
+          this.activeFilters.frontend === true &&
+          coatch.areas.includes('frontend')
+        ) {
+          return true;
+        }
+        if (
+          this.activeFilters.backend === true &&
+          coatch.areas.includes('backend')
+        ) {
+          return true;
+        }
+        if (
+          this.activeFilters.career === true &&
+          coatch.areas.includes('career')
+        ) {
+          return true;
+        }
+        return false;
+      });
     },
     hasCoatches() {
       return !this.$store.getters['coatches/isEmpty'];
+    },
+  },
+  methods: {
+    setFilters(updatedFilters) {
+      this.activeFilters = updatedFilters;
     },
   },
 };
