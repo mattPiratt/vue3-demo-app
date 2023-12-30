@@ -1,7 +1,7 @@
 export default {
   add(context, data) {
     const transformedData = {
-      id: new Date().toISOString(),
+      id: context.rootGetters.contextUserId,
       firstName: data.firstName,
       lastName: data.lastName,
       areas: data.areas,

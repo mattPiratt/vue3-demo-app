@@ -4,7 +4,10 @@
     <base-card>
       <div class="controls">
         <base-button styleMode="outline">Refresh</base-button>
-        <base-button link :to="{ name: 'register' }"
+        <base-button
+          link
+          :to="{ name: 'register' }"
+          v-if="!isRegisteredAsCoatch"
           >Register as coatch</base-button
         >
       </div>
@@ -41,7 +44,7 @@ export default {
   },
   computed: {
     filteredCoatches() {
-      const coatches = this.$store.getters['coatches/getList'];
+      const coatches = this.$store.getters['coatches/list'];
       return coatches.filter((coatch) => {
         if (
           this.activeFilters.frontend === true &&
@@ -66,6 +69,10 @@ export default {
     },
     hasCoatches() {
       return !this.$store.getters['coatches/isEmpty'];
+    },
+
+    isRegisteredAsCoatch() {
+      return this.$store.getters['coatches/isRegisteredAsCoatch'];
     },
   },
   methods: {

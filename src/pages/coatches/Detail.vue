@@ -51,7 +51,7 @@ export default {
     },
   },
   beforeMount() {
-    this.coatchDetails = this.$store.getters['coatches/getOne'](this.id);
+    this.coatchDetails = this.$store.getters['coatches/byId'](this.id);
   },
 };
 </script>
