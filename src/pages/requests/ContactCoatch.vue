@@ -30,7 +30,11 @@
 </template>
 
 <script>
+import formValidationMixin from '../../mixins/formValidationMixin.js';
+
 export default {
+  mixins: [formValidationMixin],
+  emits: ['new-coatch-contact-message'],
   data() {
     return {
       form: {
@@ -66,21 +70,6 @@ export default {
         message: this.form.message.value,
       };
       this.$emit('new-coatch-contact-message', data);
-    },
-    validateForm() {
-      this.isFormValid = true;
-      Object.keys(this.form).forEach((key) => {
-        this.validateOneField(key);
-      });
-    },
-    validateOneField(fieldName) {
-      console.log(fieldName);
-      this.form[fieldName].isValid = this.form[fieldName].validator(
-        this.form[fieldName]
-      );
-      if (this.form[fieldName].isValid === false) {
-        this.isFormValid = false;
-      }
     },
   },
 };

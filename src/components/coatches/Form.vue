@@ -84,7 +84,10 @@
 </template>
 
 <script>
+import formValidationMixin from '../../mixins/formValidationMixin.js';
+
 export default {
+  mixins: [formValidationMixin],
   emits: ['new-coatch-added'],
   data() {
     return {
@@ -144,20 +147,6 @@ export default {
         hourlyRate: this.form.hourlyRate.value,
       };
       this.$emit('new-coatch-added', data);
-    },
-    validateForm() {
-      this.isFormValid = true;
-      Object.keys(this.form).forEach((key) => {
-        this.validateOneField(key);
-      });
-    },
-    validateOneField(fieldName) {
-      this.form[fieldName].isValid = this.form[fieldName].validator(
-        this.form[fieldName]
-      );
-      if (this.form[fieldName].isValid === false) {
-        this.isFormValid = false;
-      }
     },
   },
 };
