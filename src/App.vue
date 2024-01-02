@@ -26,4 +26,13 @@ html {
 body {
   margin: 0;
 }
+
+.invalid label {
+  color: red;
+}
+
+.invalid input,
+.invalid textarea {
+  border: 1px solid red;
+}
 </style>
