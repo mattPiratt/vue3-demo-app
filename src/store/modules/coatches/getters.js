@@ -4,7 +4,7 @@ export default {
   },
   byId: (state) => (id) => {
     // using Function Currying :)
-    return state.coatchesList.find((coatch) => coatch.id === id);
+    return state.coatchesList.find((item) => item.id === id);
   },
   isEmpty(state) {
     return state.coatchesList && state.coatchesList.length === 0;
