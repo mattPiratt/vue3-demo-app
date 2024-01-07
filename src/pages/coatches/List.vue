@@ -3,7 +3,6 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button styleMode="outline">Refresh</base-button>
         <base-button
           link
           :to="{ name: 'register' }"
@@ -12,7 +11,7 @@
         >
       </div>
       <ul v-if="hasCoatches">
-        List of coatches
+        <h2>List of coatches</h2>
         <CoatchItem
           v-for="coatch in filteredCoatches"
           :key="coatch.id"

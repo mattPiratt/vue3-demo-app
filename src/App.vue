@@ -9,6 +9,9 @@ export default {
   components: {
     TheHeader,
   },
+  created() {
+    this.$store.dispatch('loadDataFromExtDB');
+  },
 };
 </script>
 

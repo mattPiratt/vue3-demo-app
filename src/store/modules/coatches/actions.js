@@ -1,13 +1,17 @@
+import dbConnector from './../../dbConnectionHelper.js';
+
 export default {
-  add(context, data) {
+  async add(context, data) {
+    const coatchId = context.rootGetters.contextUserId;
     const transformedData = {
-      id: context.rootGetters.contextUserId,
       firstName: data.firstName,
       lastName: data.lastName,
       areas: data.areas,
       description: data.description,
       hourlyRate: data.hourlyRate,
     };
-    context.commit('add', transformedData);
+
+    dbConnector.addCoatch(coatchId, transformedData);
+    context.commit('add', { ...transformedData, id: coatchId });
   },
 };
