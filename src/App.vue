@@ -1,16 +1,27 @@
 <template>
   <TheHeader />
+  <NotificationArea v-if="errorMsg">{{ errorMsg }}</NotificationArea>
   <router-view></router-view>
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
+import NotificationArea from './components/layout/NotificationArea.vue';
 export default {
+  data() {
+    return {};
+  },
   components: {
     TheHeader,
+    NotificationArea,
   },
-  created() {
+  mounted() {
     this.$store.dispatch('loadDataFromExtDB');
+  },
+  computed: {
+    errorMsg() {
+      return this.$store.getters['errorMessage'];
+    },
   },
 };
 </script>

@@ -6,11 +6,14 @@
         <base-button
           link
           :to="{ name: 'register' }"
-          v-if="!isRegisteredAsCoatch"
+          v-if="!isRegisteredAsCoatch && !isLoading"
           >Register as coatch</base-button
         >
       </div>
-      <ul v-if="hasCoatches">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasCoatches">
         <h2>List of coatches</h2>
         <CoatchItem
           v-for="coatch in filteredCoatches"
@@ -72,6 +75,9 @@ export default {
 
     isRegisteredAsCoatch() {
       return this.$store.getters['coatches/isRegisteredAsCoatch'];
+    },
+    isLoading() {
+      return this.$store.getters['isAjaxLoading'];
     },
   },
   methods: {

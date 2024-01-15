@@ -10,13 +10,17 @@ export default {
     });
     if (!response.ok) {
       console.log('HTTP Request failed (01)');
-      // TODO: handle error
+      throw new Error(
+        response.message || 'HTTP error:Failed to fetch coatches list.'
+      );
     }
     let responseBody = await response.json();
     if (!responseBody || responseBody.length === 0) {
       const coatches = this.getDemoData();
       for (const coatchKey in coatches) {
-        this.addCoatch(coatchKey, coatches[coatchKey]);
+        await this.addCoatch(coatchKey, coatches[coatchKey]).catch((e) => {
+          throw new Error(e.message);
+        });
       }
       responseBody = coatches;
     }
@@ -29,8 +33,9 @@ export default {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      console.log('HTTP Request failed (02)');
-      // TODO: handle error
+      throw new Error(
+        response.message || 'HTTP error: Failed to add new coatch.'
+      );
     }
   },
   getDemoData() {

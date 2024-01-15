@@ -1,7 +1,9 @@
 <template>
   <header>
     <nav>
-      <h1><router-link :to="{ name: 'home' }">Header</router-link></h1>
+      <h1>
+        <router-link :to="{ name: 'home' }">Find Your coatch!</router-link>
+      </h1>
     </nav>
     <ul>
       <li>

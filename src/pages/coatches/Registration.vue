@@ -15,8 +15,8 @@ export default {
     CoatchForm,
   },
   methods: {
-    saveData(data) {
-      this.$store.dispatch('coatches/add', data);
+    async saveData(data) {
+      await this.$store.dispatch('coatches/add', data);
       this.$router.replace({ name: 'coatchesList' });
     },
   },

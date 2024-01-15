@@ -7,6 +7,8 @@ const store = createStore({
   state() {
     return {
       contextUserId: 'u3',
+      isAjaxLoading: false,
+      errorMessage: false,
     };
   },
   modules: {
@@ -17,16 +19,42 @@ const store = createStore({
     contextUserId(state) {
       return state.contextUserId;
     },
+    isAjaxLoading(state) {
+      return state.isAjaxLoading;
+    },
+    errorMessage(state) {
+      return state.errorMessage;
+    },
   },
   actions: {
-    async loadDataFromExtDB(context) {
-      const dbCoatches = await dbConnector.loadCoatches();
-      for (const coatchId in dbCoatches) {
-        context.commit('coatches/add', {
-          ...dbCoatches[coatchId],
-          id: coatchId,
-        });
+    async loadDataFromExtDB({ commit }) {
+      commit('setIsAjaxLoading', true, { root: true });
+
+      try {
+        const dbCoatches = await dbConnector.loadCoatches();
+        for (const coatchId in dbCoatches) {
+          commit('coatches/add', {
+            ...dbCoatches[coatchId],
+            id: coatchId,
+          });
+        }
+      } catch (error) {
+        return commit(
+          'setErrorMessage',
+          error.message || 'Something went wrong!',
+          { root: true }
+        );
       }
+
+      commit('setIsAjaxLoading', false, { root: true });
+    },
+  },
+  mutations: {
+    setIsAjaxLoading(state, newState) {
+      state.isAjaxLoading = newState;
+    },
+    setErrorMessage(state, newVal) {
+      state.errorMessage = newVal;
     },
   },
 });
