@@ -1,15 +1,25 @@
 <template>
   <TheHeader />
-  <NotificationArea v-if="errorMsg">{{ errorMsg }}</NotificationArea>
+  <NotificationArea v-if="!!notification">{{ notification }}</NotificationArea>
+  <base-dialog
+    :show="!!errorMsg"
+    title="An error occured."
+    @close="handleError"
+  >
+    <p>{{ errorMsg }}</p>
+  </base-dialog>
   <router-view></router-view>
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
 import NotificationArea from './components/layout/NotificationArea.vue';
+
 export default {
   data() {
-    return {};
+    return {
+      notification: null,
+    };
   },
   components: {
     TheHeader,
@@ -21,6 +31,11 @@ export default {
   computed: {
     errorMsg() {
       return this.$store.getters['errorMessage'];
+    },
+  },
+  methods: {
+    handleError() {
+      this.$store.commit('setErrorMessage', false);
     },
   },
 };

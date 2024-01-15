@@ -1,5 +1,5 @@
 export default {
-  addRequest(state, payload) {
+  add(state, payload) {
     state.requestsList.push(payload);
   },
 };

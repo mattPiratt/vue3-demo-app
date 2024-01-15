@@ -4,6 +4,9 @@
       <header>
         <h2>Requests Received</h2>
       </header>
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
       <ul>
         <received-request-item
           v-for="receivedRequest in receivedRequests"
@@ -11,7 +14,7 @@
           :key="receivedRequest.id"
         />
       </ul>
-      <h3>You have not received any requests yet.</h3>
+      <h3 v-if="!receivedRequests">You have not received any requests yet.</h3>
     </base-card>
   </section>
 </template>
@@ -29,6 +32,9 @@ export default {
     },
     hasRequests() {
       return !this.$store.getters['requests/isEmpty'];
+    },
+    isLoading() {
+      return this.$store.getters['isAjaxLoading'];
     },
   },
 };

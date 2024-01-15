@@ -38,6 +38,35 @@ export default {
       );
     }
   },
+  async loadRequests(coatchId) {
+    const response = await fetch(`${DB_URL}/requests/${coatchId}.json`, {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      console.log('HTTP Request failed (01)');
+      throw new Error(
+        response.message || 'HTTP error:Failed to fetch requests list.'
+      );
+    }
+    const responseBody = await response.json();
+    for (let itemKey in responseBody) {
+      responseBody[itemKey].id = itemKey;
+      responseBody[itemKey].coatchId = coatchId;
+    }
+    return responseBody;
+  },
+  async addRequest(id, data) {
+    const response = await fetch(`${DB_URL}/requests/${id}.json`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(
+        response.message || 'HTTP error: Failed to add new coatch.'
+      );
+    }
+    return response;
+  },
   getDemoData() {
     return {
       c1: {

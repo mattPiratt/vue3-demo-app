@@ -27,7 +27,7 @@ const store = createStore({
     },
   },
   actions: {
-    async loadDataFromExtDB({ commit }) {
+    async loadDataFromExtDB({ commit, state }) {
       commit('setIsAjaxLoading', true, { root: true });
 
       try {
@@ -37,6 +37,11 @@ const store = createStore({
             ...dbCoatches[coatchId],
             id: coatchId,
           });
+        }
+
+        const dbRequests = await dbConnector.loadRequests(state.contextUserId);
+        for (const requestItem in dbRequests) {
+          commit('requests/add', dbRequests[requestItem]);
         }
       } catch (error) {
         return commit(

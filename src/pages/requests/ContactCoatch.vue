@@ -70,7 +70,6 @@ export default {
         message: this.form.message.value,
         coatchId: this.$route.params.id,
       };
-      console.log(data);
       this.$emit('new-coatch-contact-message', data);
       this.$store.dispatch('requests/contactCoatch', data);
       this.$router.replace({ name: 'coatchesList' });
