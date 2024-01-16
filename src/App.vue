@@ -8,7 +8,11 @@
   >
     <p>{{ errorMsg }}</p>
   </base-dialog>
-  <router-view></router-view>
+  <router-view v-slot="slotProps">
+    <Transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </Transition>
+  </router-view>
 </template>
 
 <script>
@@ -63,5 +67,27 @@ body {
 .invalid input,
 .invalid textarea {
   border: 1px solid red;
+}
+
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.route-enter-to,
+.route-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
 }
 </style>

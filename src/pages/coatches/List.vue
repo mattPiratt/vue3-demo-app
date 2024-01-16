@@ -1,29 +1,31 @@
 <template>
-  <CoatchFilter @change-filter="setFilters" />
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button
-          link
-          :to="{ name: 'register' }"
-          v-if="!isRegisteredAsCoatch && !isLoading"
-          >Register as coatch</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasCoatches">
-        <h2>List of coatches</h2>
-        <CoatchItem
-          v-for="coatch in filteredCoatches"
-          :key="coatch.id"
-          v-bind="coatch"
-        ></CoatchItem>
-      </ul>
-      <p v-else>No coaches found.</p>
-    </base-card>
-  </section>
+  <div>
+    <CoatchFilter @change-filter="setFilters" />
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button
+            link
+            :to="{ name: 'register' }"
+            v-if="!isRegisteredAsCoatch && !isLoading"
+            >Register as coatch</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasCoatches">
+          <h2>List of coatches</h2>
+          <CoatchItem
+            v-for="coatch in filteredCoatches"
+            :key="coatch.id"
+            v-bind="coatch"
+          ></CoatchItem>
+        </ul>
+        <p v-else>No coaches found.</p>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
