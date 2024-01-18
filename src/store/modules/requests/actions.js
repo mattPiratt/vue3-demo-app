@@ -27,4 +27,24 @@ export default {
 
     commit('setIsAjaxLoading', false, { root: true });
   },
+  async loadDataFromExtDB({ commit, state }) {
+    if (state.requestsList.length === 0) {
+      commit('setIsAjaxLoading', true, { root: true });
+
+      try {
+        const dbRequests = await dbConnector.loadRequests(state.contextUserId);
+        for (const requestItem in dbRequests) {
+          commit('add', dbRequests[requestItem]);
+        }
+      } catch (error) {
+        return commit(
+          'setErrorMessage',
+          error.message || 'Something went wrong!',
+          { root: true }
+        );
+      }
+
+      commit('setIsAjaxLoading', false, { root: true });
+    }
+  },
 };

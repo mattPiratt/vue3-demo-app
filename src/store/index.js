@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
 import coatchesModule from './modules/coatches/index.js';
 import requestsModule from './modules/requests/index.js';
-import dbConnector from './dbConnectionHelper.js';
 
 const store = createStore({
   state() {
@@ -24,34 +23,6 @@ const store = createStore({
     },
     errorMessage(state) {
       return state.errorMessage;
-    },
-  },
-  actions: {
-    async loadDataFromExtDB({ commit, state }) {
-      commit('setIsAjaxLoading', true, { root: true });
-
-      try {
-        const dbCoatches = await dbConnector.loadCoatches();
-        for (const coatchId in dbCoatches) {
-          commit('coatches/add', {
-            ...dbCoatches[coatchId],
-            id: coatchId,
-          });
-        }
-
-        const dbRequests = await dbConnector.loadRequests(state.contextUserId);
-        for (const requestItem in dbRequests) {
-          commit('requests/add', dbRequests[requestItem]);
-        }
-      } catch (error) {
-        return commit(
-          'setErrorMessage',
-          error.message || 'Something went wrong!',
-          { root: true }
-        );
-      }
-
-      commit('setIsAjaxLoading', false, { root: true });
     },
   },
   mutations: {

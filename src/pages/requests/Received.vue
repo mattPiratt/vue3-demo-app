@@ -26,6 +26,9 @@ export default {
   components: {
     ReceivedRequestItem,
   },
+  mounted() {
+    this.$store.dispatch('requests/loadDataFromExtDB');
+  },
   computed: {
     receivedRequests() {
       return this.$store.getters['requests/list'];

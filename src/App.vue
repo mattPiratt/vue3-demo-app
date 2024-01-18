@@ -29,9 +29,6 @@ export default {
     TheHeader,
     NotificationArea,
   },
-  mounted() {
-    this.$store.dispatch('loadDataFromExtDB');
-  },
   computed: {
     errorMsg() {
       return this.$store.getters['errorMessage'];
@@ -40,6 +37,7 @@ export default {
   methods: {
     handleError() {
       this.$store.commit('setErrorMessage', false);
+      this.$store.commit('setIsAjaxLoading', false, { root: true });
     },
   },
 };

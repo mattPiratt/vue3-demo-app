@@ -28,4 +28,29 @@ export default {
 
     commit('setIsAjaxLoading', false, { root: true });
   },
+  async loadDataFromExtDB({ commit, state }) {
+    if (state.coatchesList.length === 0) {
+      commit('setIsAjaxLoading', true, { root: true });
+
+      try {
+        const dbCoatches = await dbConnector.loadCoatches();
+        for (const coatchId in dbCoatches) {
+          commit('add', {
+            ...dbCoatches[coatchId],
+            id: coatchId,
+          });
+        }
+      } catch (error) {
+        return commit(
+          'setErrorMessage',
+          error.message || 'Something went wrong!',
+          {
+            root: true,
+          }
+        );
+      }
+
+      commit('setIsAjaxLoading', false, { root: true });
+    }
+  },
 };

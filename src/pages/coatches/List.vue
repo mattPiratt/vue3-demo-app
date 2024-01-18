@@ -37,6 +37,9 @@ export default {
     CoatchItem,
     CoatchFilter,
   },
+  mounted() {
+    this.$store.dispatch('coatches/loadDataFromExtDB');
+  },
   data() {
     return {
       activeFilters: {
