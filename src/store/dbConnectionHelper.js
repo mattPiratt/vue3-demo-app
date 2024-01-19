@@ -2,6 +2,7 @@
 
 const DB_URL =
   'https://vue-app-demo1-default-rtdb.europe-west1.firebasedatabase.app';
+const FIREBASE_API_KEY = process.env.VUE_APP_FIREBASE_API_KEY;
 
 export default {
   async loadCoatches() {
@@ -67,6 +68,33 @@ export default {
     }
     return response;
   },
+
+  async userRegister(data) {
+    console.log('dbConnector:userRegister');
+    console.log(data);
+
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          returnSecureToken: true,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        response.message || 'HTTP error: Failed to register new user.'
+      );
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  },
+
   getDemoData() {
     return {
       c1: {

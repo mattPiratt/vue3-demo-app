@@ -1,11 +1,11 @@
 import { createStore } from 'vuex';
 import coatchesModule from './modules/coatches/index.js';
 import requestsModule from './modules/requests/index.js';
+import authModule from './modules/auth/index.js';
 
 const store = createStore({
   state() {
     return {
-      contextUserId: 'u3',
       isAjaxLoading: false,
       errorMessage: false,
     };
@@ -13,11 +13,9 @@ const store = createStore({
   modules: {
     coatches: coatchesModule,
     requests: requestsModule,
+    auth: authModule,
   },
   getters: {
-    contextUserId(state) {
-      return state.contextUserId;
-    },
     isAjaxLoading(state) {
       return state.isAjaxLoading;
     },

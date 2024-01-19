@@ -6,6 +6,7 @@ import CoatchesRegistration from './pages/coatches/Registration.vue';
 import ContactCoatch from './pages/requests/ContactCoatch.vue';
 import ReceivedRequests from './pages/requests/Received.vue';
 import NotFound from './pages/NotFound.vue';
+import UserAuth from './pages/auth/UserAuth.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,7 @@ const router = createRouter({
       name: 'receivedRequests',
       component: ReceivedRequests,
     },
+    { path: '/auth', name: 'auth', component: UserAuth },
     { path: '/:notFound(.*)', component: NotFound },
   ],
 });
