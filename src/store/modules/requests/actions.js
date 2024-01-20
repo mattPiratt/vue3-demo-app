@@ -27,12 +27,15 @@ export default {
 
     commit('setIsAjaxLoading', false, { root: true });
   },
-  async loadDataFromExtDB({ commit, state }) {
+  async loadDataFromExtDB({ commit, state, rootGetters }) {
     if (state.requestsList.length === 0) {
       commit('setIsAjaxLoading', true, { root: true });
 
       try {
-        const dbRequests = await dbConnector.loadRequests(state.contextUserId);
+        const dbRequests = await dbConnector.loadRequests(
+          rootGetters.contextUserId,
+          rootGetters.token
+        );
         for (const requestItem in dbRequests) {
           commit('add', dbRequests[requestItem]);
         }

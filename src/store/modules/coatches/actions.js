@@ -16,7 +16,7 @@ export default {
     };
 
     try {
-      await dbConnector.addCoatch(coatchId, transformedData);
+      await dbConnector.addCoatch(coatchId, transformedData, rootGetters.token);
     } catch (error) {
       return commit(
         'setErrorMessage',
@@ -28,12 +28,12 @@ export default {
 
     commit('setIsAjaxLoading', false, { root: true });
   },
-  async loadDataFromExtDB({ commit, state }) {
+  async loadDataFromExtDB({ commit, state, rootGetters }) {
     if (state.coatchesList.length === 0) {
       commit('setIsAjaxLoading', true, { root: true });
 
       try {
-        const dbCoatches = await dbConnector.loadCoatches();
+        const dbCoatches = await dbConnector.loadCoatches(rootGetters.token);
         for (const coatchId in dbCoatches) {
           commit('add', {
             ...dbCoatches[coatchId],

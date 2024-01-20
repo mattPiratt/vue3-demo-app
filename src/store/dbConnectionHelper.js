@@ -26,7 +26,7 @@ async function auth(data, APIMethod, errorMsg) {
 }
 
 export default {
-  async loadCoatches() {
+  async loadCoatches(authToken) {
     const response = await fetch(`${DB_URL}/coatches.json`, {
       method: 'GET',
     });
@@ -40,30 +40,38 @@ export default {
     if (!responseBody || responseBody.length === 0) {
       const coatches = this.getDemoData();
       for (const coatchKey in coatches) {
-        await this.addCoatch(coatchKey, coatches[coatchKey]).catch((e) => {
-          throw new Error(e.message);
-        });
+        await this.addCoatch(coatchKey, coatches[coatchKey], authToken).catch(
+          (e) => {
+            throw new Error(e.message);
+          }
+        );
       }
       responseBody = coatches;
     }
 
     return responseBody;
   },
-  async addCoatch(id, data) {
-    const response = await fetch(`${DB_URL}/coatches/${id}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-    });
+  async addCoatch(id, data, authToken) {
+    const response = await fetch(
+      `${DB_URL}/coatches/${id}.json?auth=${authToken}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      }
+    );
     if (!response.ok) {
       throw new Error(
         response.message || 'HTTP error: Failed to add new coatch.'
       );
     }
   },
-  async loadRequests(coatchId) {
-    const response = await fetch(`${DB_URL}/requests/${coatchId}.json`, {
-      method: 'GET',
-    });
+  async loadRequests(coatchId, authToken) {
+    const response = await fetch(
+      `${DB_URL}/requests/${coatchId}.json?auth=${authToken}`,
+      {
+        method: 'GET',
+      }
+    );
     if (!response.ok) {
       console.log('HTTP Request failed (01)');
       throw new Error(
