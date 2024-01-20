@@ -1,31 +1,33 @@
 import dbConnector from './../../dbConnectionHelper.js';
 
+async function auth(commit, paload, action) {
+  commit('setIsAjaxLoading', true, { root: true });
+  let success = true;
+
+  try {
+    const responseData = await action(paload);
+
+    commit('setUser', {
+      token: responseData.idToken,
+      userId: responseData.localId,
+      tokenExpiration: responseData.expiresIn,
+    });
+  } catch (error) {
+    commit('setErrorMessage', error.message || 'Something went wrong!', {
+      root: true,
+    });
+    success = false;
+  }
+
+  commit('setIsAjaxLoading', false, { root: true });
+  return success;
+}
+
 export default {
-  login() {
-    // TODO: implement
+  async login({ commit }, payload) {
+    return await auth(commit, payload, dbConnector.userLogin);
   },
-  async signup({ commit }, paload) {
-    console.log('action:signup');
-    console.log(paload);
-
-    commit('setIsAjaxLoading', true, { root: true });
-
-    try {
-      const responseData = await dbConnector.userRegister(paload);
-
-      commit('setUser', {
-        token: responseData.idToken,
-        userId: responseData.localId,
-        tokenExpiration: responseData.expiresIn,
-      });
-    } catch (error) {
-      return commit(
-        'setErrorMessage',
-        error.message || 'Something went wrong!',
-        { root: true }
-      );
-    }
-
-    commit('setIsAjaxLoading', false, { root: true });
+  async signup({ commit }, payload) {
+    return await auth(commit, payload, dbConnector.userRegister);
   },
 };

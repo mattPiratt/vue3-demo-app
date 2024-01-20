@@ -69,7 +69,7 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.validateForm();
 
       if (this.isFormValid === false) {
@@ -81,12 +81,14 @@ export default {
         password: this.form.password.value,
       };
       this.$emit('new-user-login', data);
-      if (this.formMode == 'login') {
-        this.$store.dispatch('login', data);
-      } else {
-        this.$store.dispatch('signup', data);
+
+      const result = await this.$store.dispatch(
+        this.formMode == 'login' ? 'login' : 'signup',
+        data
+      );
+      if (result === true) {
+        this.$router.replace({ name: 'coatchesList' });
       }
-      this.$router.replace({ name: 'coatchesList' });
     },
     switchAuthMode() {
       if (this.formMode == 'login') {

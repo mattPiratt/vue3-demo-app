@@ -4,6 +4,27 @@ const DB_URL =
   'https://vue-app-demo1-default-rtdb.europe-west1.firebasedatabase.app';
 const FIREBASE_API_KEY = process.env.VUE_APP_FIREBASE_API_KEY;
 
+async function auth(data, APIMethod, errorMsg) {
+  const response = await fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:${APIMethod}?key=${FIREBASE_API_KEY}`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        returnSecureToken: true,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(response.message || errorMsg);
+  }
+
+  const responseData = await response.json();
+  return responseData;
+}
+
 export default {
   async loadCoatches() {
     const response = await fetch(`${DB_URL}/coatches.json`, {
@@ -70,29 +91,18 @@ export default {
   },
 
   async userRegister(data) {
-    console.log('dbConnector:userRegister');
-    console.log(data);
-
-    const response = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-          returnSecureToken: true,
-        }),
-      }
+    return await auth(
+      data,
+      'signUp',
+      'HTTP error: Failed to register new user.'
     );
-
-    if (!response.ok) {
-      throw new Error(
-        response.message || 'HTTP error: Failed to register new user.'
-      );
-    }
-
-    const responseData = await response.json();
-    return responseData;
+  },
+  async userLogin(data) {
+    return await auth(
+      data,
+      'signInWithPassword',
+      'HTTP error: Failed to login a user.'
+    );
   },
 
   getDemoData() {
