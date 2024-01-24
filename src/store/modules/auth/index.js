@@ -7,8 +7,8 @@ export default {
   state() {
     return {
       contextUserId: null,
-      tokenExpiration: null,
       token: null,
+      didAutoLogout: false,
     };
   },
   mutations,

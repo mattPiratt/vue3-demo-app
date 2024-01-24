@@ -31,13 +31,26 @@ export default {
   },
   computed: {
     errorMsg() {
-      return this.$store.getters['errorMessage'];
+      return this.$store.getters.errorMessage;
+    },
+    didAutoLogout() {
+      return this.$store.getters.didAutoLogout;
     },
   },
   methods: {
     handleError() {
       this.$store.commit('setErrorMessage', false);
       this.$store.commit('setIsAjaxLoading', false, { root: true });
+    },
+  },
+  created() {
+    this.$store.dispatch('loginFromLocalStorage');
+  },
+  watch: {
+    didAutoLogout(newVal, oldVal) {
+      if (newVal === true && newVal !== oldVal) {
+        this.$router.replace({ name: 'home' });
+      }
     },
   },
 };

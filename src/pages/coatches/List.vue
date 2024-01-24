@@ -7,7 +7,7 @@
           <base-button
             link
             :to="{ name: 'register' }"
-            v-if="!isRegisteredAsCoatch && !isLoading"
+            v-if="isLoggedIn && !isRegisteredAsCoatch && !isLoading"
             >Register as coatch</base-button
           >
         </div>
@@ -82,7 +82,10 @@ export default {
       return this.$store.getters['coatches/isRegisteredAsCoatch'];
     },
     isLoading() {
-      return this.$store.getters['isAjaxLoading'];
+      return this.$store.getters.isAjaxLoading;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
     },
   },
   methods: {

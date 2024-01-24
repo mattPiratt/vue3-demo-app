@@ -6,15 +6,37 @@
       </h1>
     </nav>
     <ul>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'receivedRequests' }">Requests</router-link>
+      </li>
       <li>
         <router-link :to="{ name: 'coatchesList' }">All Coatches</router-link>
       </li>
-      <li>
-        <router-link :to="{ name: 'receivedRequests' }">Requests</router-link>
+      <li v-if="!isLoggedIn">
+        <base-button link :to="{ name: 'auth' }">Login</base-button>
+      </li>
+      <li v-else>
+        <base-button @click="logout">Logout</base-button>
       </li>
     </ul>
   </header>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.replace({ name: 'home' });
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
