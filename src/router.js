@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-import CoatchesDetail from './pages/coatches/Detail.vue';
-import CoatchesList from './pages/coatches/List.vue';
-import CoatchesRegistration from './pages/coatches/Registration.vue';
-import ContactCoatch from './pages/requests/ContactCoatch.vue';
-import ReceivedRequests from './pages/requests/Received.vue';
-import NotFound from './pages/NotFound.vue';
-import UserAuth from './pages/auth/UserAuth.vue';
 import store from './store/index.js';
+
+const CoatchesDetail = () => import('./pages/coatches/Detail.vue');
+const CoatchesList = () => import('./pages/coatches/List.vue');
+const CoatchesRegistration = () => import('./pages/coatches/Registration.vue');
+const ContactCoatch = () => import('./pages/requests/ContactCoatch.vue');
+const ReceivedRequests = () => import('./pages/requests/Received.vue');
+const NotFound = () => import('./pages/NotFound.vue');
+const UserAuth = () => import('./pages/auth/UserAuth.vue');
 
 const router = createRouter({
   history: createWebHistory(),
