@@ -4,7 +4,7 @@
   <base-dialog
     :show="!!errorMsg"
     title="An error occured."
-    @close="handleError"
+    @close="handleErrorClose"
   >
     <p>{{ errorMsg }}</p>
   </base-dialog>
@@ -38,7 +38,7 @@ export default {
     },
   },
   methods: {
-    handleError() {
+    handleErrorClose() {
       this.$store.commit('setErrorMessage', false);
       this.$store.commit('setIsAjaxLoading', false, { root: true });
     },

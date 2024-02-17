@@ -1,3 +1,32 @@
+<script>
+export default {
+  name: 'CoatchFilter',
+};
+</script>
+
+<script setup>
+import { reactive } from 'vue';
+
+const emit = defineEmits(['change-filter']);
+
+let filters = reactive({
+  frontend: true,
+  backend: true,
+  career: true,
+});
+
+function setFilter(event) {
+  const inputId = event.target.id;
+  const isActive = event.target.checked;
+  const updatedFilters = {
+    ...filters,
+    [inputId]: isActive,
+  };
+  filters = updatedFilters;
+  emit('change-filter', updatedFilters);
+}
+</script>
+
 <template>
   <base-card>
     <h2>Find your coatch</h2>
@@ -15,33 +44,6 @@
     </span>
   </base-card>
 </template>
-
-<script>
-export default {
-  emits: ['change-filter'],
-  data() {
-    return {
-      filters: {
-        frontend: true,
-        backend: true,
-        career: true,
-      },
-    };
-  },
-  methods: {
-    setFilter(event) {
-      const inputId = event.target.id;
-      const isActive = event.target.checked;
-      const updatedFilters = {
-        ...this.filters,
-        [inputId]: isActive,
-      };
-      this.filters = updatedFilters;
-      this.$emit('change-filter', updatedFilters);
-    },
-  },
-};
-</script>
 
 <style scoped>
 h2 {

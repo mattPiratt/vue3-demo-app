@@ -34,6 +34,7 @@
 
 <script>
 export default {
+  name: 'CoatchesDetail',
   props: {
     id: {
       type: String,

@@ -87,6 +87,7 @@
 import formValidationMixin from '../../mixins/formValidationMixin.js';
 
 export default {
+  name: 'CoatchForm',
   mixins: [formValidationMixin],
   emits: ['new-coatch-added'],
   data() {

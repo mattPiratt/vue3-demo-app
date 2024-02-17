@@ -1,3 +1,28 @@
+<script>
+export default {
+  name: 'ReceivedRequestItem',
+};
+</script>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  userEmail: {
+    type: String,
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
+const emailLink = computed(() => {
+  return 'mailto:' + props.userEmail;
+});
+</script>
+
 <template>
   <li>
     <div>
@@ -6,26 +31,6 @@
     </div>
   </li>
 </template>
-
-<script>
-export default {
-  props: {
-    userEmail: {
-      type: String,
-      required: true,
-    },
-    message: {
-      type: String,
-      required: true,
-    },
-  },
-  computed: {
-    emailLink() {
-      return 'mailto:' + this.userEmail;
-    },
-  },
-};
-</script>
 
 <style scoped>
 li {

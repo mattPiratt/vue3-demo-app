@@ -11,6 +11,7 @@
 import CoatchForm from '../../components/coatches/Form.vue';
 
 export default {
+  name: 'CoatchesRegistration',
   components: {
     CoatchForm,
   },

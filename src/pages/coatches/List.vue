@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CoatchFilter @change-filter="setFilters" />
+    <coatch-filter @change-filter="setFilters" />
     <section>
       <base-card>
         <div class="controls">
@@ -33,6 +33,7 @@ import CoatchItem from '../../components/coatches/Item.vue';
 import CoatchFilter from '../../components/coatches/Filter.vue';
 
 export default {
+  name: 'CoatchesList',
   components: {
     CoatchItem,
     CoatchFilter,

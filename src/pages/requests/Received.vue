@@ -23,6 +23,7 @@
 import ReceivedRequestItem from './../../components/requests/Item.vue';
 
 export default {
+  name: 'ReceivedRequests',
   components: {
     ReceivedRequestItem,
   },

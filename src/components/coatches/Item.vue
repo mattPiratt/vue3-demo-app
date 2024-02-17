@@ -1,3 +1,26 @@
+<script>
+export default {
+  name: 'CoatchItem',
+};
+</script>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  id: String,
+  firstName: String,
+  lastName: String,
+  areas: Array,
+  description: String,
+  hourlyRate: Number,
+});
+
+const fullName = computed(() => {
+  return props.firstName + ' ' + props.lastName;
+});
+</script>
+
 <template>
   <li>
     <h3>{{ fullName }}</h3>
@@ -21,17 +44,6 @@
     </div>
   </li>
 </template>
-
-<script>
-export default {
-  props: ['id', 'firstName', 'lastName', 'areas', 'description', 'hourlyRate'],
-  computed: {
-    fullName() {
-      return this.firstName + ' ' + this.lastName;
-    },
-  },
-};
-</script>
 
 <style scoped>
 li {
