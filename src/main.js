@@ -7,6 +7,9 @@ import BaseCard from './components/ui/BaseCard.vue';
 import BaseButton from './components/ui/BaseButton.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
 import BaseSpinner from './components/ui/BaseSpinner.vue';
+
+import LoggerMixin from './mixins/logger.js';
+
 const BaseDialog = defineAsyncComponent(() =>
   import('./components/ui/BaseDialog.vue')
 );
@@ -19,4 +22,5 @@ app.component('base-spinner', BaseSpinner);
 app.component('base-dialog', BaseDialog);
 app.use(Router);
 app.use(Store);
+app.mixin(LoggerMixin);
 app.mount('#app');

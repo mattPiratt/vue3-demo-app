@@ -5,26 +5,13 @@ export default {
 </script>
 
 <script setup>
-import { reactive } from 'vue';
-
+import useFilters from '../../composables/filters.js';
 const emit = defineEmits(['change-filter']);
-
-let filters = reactive({
+let setFilter = useFilters(emit, {
   frontend: true,
   backend: true,
   career: true,
 });
-
-function setFilter(event) {
-  const inputId = event.target.id;
-  const isActive = event.target.checked;
-  const updatedFilters = {
-    ...filters,
-    [inputId]: isActive,
-  };
-  filters = updatedFilters;
-  emit('change-filter', updatedFilters);
-}
 </script>
 
 <template>
