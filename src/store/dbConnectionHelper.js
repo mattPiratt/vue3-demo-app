@@ -1,7 +1,6 @@
 //dbConnectorMixin.js
 
-const DB_URL =
-  'https://vue-app-demo1-default-rtdb.europe-west1.firebasedatabase.app';
+const DB_URL = process.env.VUE_APP_FIREBASE_DB_URL;
 const FIREBASE_API_KEY = process.env.VUE_APP_FIREBASE_API_KEY;
 
 async function auth(data, APIMethod, errorMsg) {

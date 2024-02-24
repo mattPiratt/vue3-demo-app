@@ -32,3 +32,36 @@ The Vue 3 Composite API, introduced as Script Setup, offers an alternative appro
 - components/layout/TheHeader.vue
 
 Additionally, there's an example of a Composite API Hook/Composable connected with the coatches/Filter.vue component.
+
+### How to run
+
+1. Install dependencies
+   `npm install`
+
+2. Create [Firebase account](https://firebase.google.com/), then a new project, then new realtime database. Newly generated DB URL should be copy-pasted into this project .env ( or .env.local) file as VUE_APP_FIREBASE_DB_URL
+
+3. Firebase also offers authentication service. To enable it, go to "Authentication" module, and enable email/password by going to `Sign-in method`->`Add new provider`->`Native providers`->`Email/password` and aenable it.
+
+4. In Firebase console, `Realtime database` panel, go to `Rules` tab and use this configuration:
+
+```
+{
+  "rules": {
+    "coatches" : {
+      ".read": true,
+      ".write": "auth != null",
+    },
+    "requests" : {
+      ".read": "auth != null",
+      ".write": true,
+    },
+  }
+}
+```
+
+5. Start the app
+   `npm run serve`
+
+6. Go to signu-up page: http://localhost:8080/auth and create new account
+
+7. App is ready
