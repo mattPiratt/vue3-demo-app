@@ -23,4 +23,7 @@ app.component('base-dialog', BaseDialog);
 app.use(Router);
 app.use(Store);
 app.mixin(LoggerMixin);
-app.mount('#app');
+
+Router.isReady().then(() => {
+  app.mount('#app');
+});

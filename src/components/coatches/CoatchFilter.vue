@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: 'CoatchFilter',
-};
-</script>
-
 <script setup>
 import useFilters from '../../composables/filters.js';
 const emit = defineEmits(['change-filter']);

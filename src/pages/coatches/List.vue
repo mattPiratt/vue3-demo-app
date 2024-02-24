@@ -30,7 +30,7 @@
 
 <script>
 import CoatchItem from '../../components/coatches/Item.vue';
-import CoatchFilter from '../../components/coatches/Filter.vue';
+import CoatchFilter from '../../components/coatches/CoatchFilter.vue';
 
 export default {
   name: 'CoatchesList',
